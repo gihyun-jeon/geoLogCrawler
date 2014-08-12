@@ -1,6 +1,7 @@
 package geoLogCrawler.bo;
 
 import geoLogCrawler.bean.GeoLog;
+import geoLogCrawler.util.ReverseFileReader;
 
 import java.io.File;
 import java.io.IOException;

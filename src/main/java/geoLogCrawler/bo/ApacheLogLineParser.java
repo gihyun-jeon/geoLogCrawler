@@ -1,6 +1,7 @@
 package geoLogCrawler.bo;
 
 import geoLogCrawler.bean.GeoLog;
+import geoLogCrawler.util.GpsCoordinateUtil;
 
 import java.util.Locale;
 
