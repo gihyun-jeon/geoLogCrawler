@@ -6,8 +6,8 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GeoInfoCrawler {
-	private final static Logger logger = LoggerFactory.getLogger(GeoInfoCrawler.class);
+public class GeoLogCrawler {
+	private final static Logger logger = LoggerFactory.getLogger(GeoLogCrawler.class);
 
 	private static final String ENCODING = "UTF-8";
 	public static final String TARGET_LOG_FILE = "src/main/resources/sample.log";

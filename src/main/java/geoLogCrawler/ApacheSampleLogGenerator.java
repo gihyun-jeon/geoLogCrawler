@@ -26,7 +26,7 @@ public class ApacheSampleLogGenerator {
 		int rowCount = 0;
 
 		// 39.118.13.103 - userId [04/Aug/2014:00:00:01 +0900] "GET /js/dist/app/commons/sample.js HTTP/1.1" 200 1346 "Success-NotRefeshTime" "0"
-		out = new FileWriter(GeoInfoCrawler.TARGET_LOG_FILE);
+		out = new FileWriter(GeoLogCrawler.TARGET_LOG_FILE);
 		String ip;
 		DateTime date;
 		while (keepGoing) {
