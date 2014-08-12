@@ -21,14 +21,17 @@ public class GeoInfoCrawler {
 
 		try {
 			fileReader = new ReverseFileReader(file, ENCODING);
+
 			while ((line = fileReader.readLine()) != null) {
 				GeoLog geoLog = parser.parseLogLine(line);
 				if (null != geoLog) {
 					logger.debug(geoLog.toString());
+
 				} else {
 					logger.debug("getLog is null");
 				}
 			}
+
 		} catch (IOException e) {
 			logger.warn("FAIL! line={}", line);
 		}

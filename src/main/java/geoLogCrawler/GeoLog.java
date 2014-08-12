@@ -2,15 +2,18 @@ package geoLogCrawler;
 
 import org.joda.time.DateTime;
 
+import com.google.api.client.repackaged.com.google.common.base.Strings;
+
 public class GeoLog {
-	DateTime eventTime;
-	String ip;
-	String gpsPosition;
-	String tagString; //may be json
+	private DateTime eventTime;
+	private String ip;
+	private String latitude;
+	private String longitude;
+	private String tagString; //may be json
 
 	@Override
 	public String toString() {
-		return super.toString() + " eventTime=" + eventTime + " ip=" + ip + " gpsPosition=" + gpsPosition + " tagString=" + tagString;
+		return super.toString() + " eventTime=" + eventTime + " ip=" + ip + " latitude=" + latitude + " longitude=" + longitude + " tagString=" + tagString;
 	}
 
 	public DateTime getEventTime() {
@@ -26,15 +29,26 @@ public class GeoLog {
 	}
 
 	public void setIp(String ip) {
+		if (Strings.isNullOrEmpty(ip)) {
+			throw new RuntimeException("ip can not be null!");
+		}
 		this.ip = ip;
 	}
 
-	public String getGpsPosition() {
-		return gpsPosition;
+	public String getLatitude() {
+		return latitude;
 	}
 
-	public void setGpsPosition(String gpsPosition) {
-		this.gpsPosition = gpsPosition;
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
 	}
 
 	public String getTagString() {
