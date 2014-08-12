@@ -1,4 +1,7 @@
-package geoLogCrawler.bo;
+package geoLogCrawler.util;
+
+import geoLogCrawler.bo.ApacheLogLineParser;
+import geoLogCrawler.bo.GeoLogCrawler;
 
 import java.io.FileWriter;
 import java.io.IOException;

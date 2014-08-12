@@ -1,6 +1,6 @@
 package geoLogCrawler;
 
-import geoLogCrawler.bo.ApacheSampleLogGenerator;
+import geoLogCrawler.util.ApacheSampleLogGenerator;
 
 import java.io.IOException;
 
