@@ -28,7 +28,7 @@ public class GeoInfoCrawler {
 					logger.debug(geoLog.toString());
 
 				} else {
-					logger.debug("getLog is null");
+					logger.warn("getLog is null");
 				}
 			}
 
