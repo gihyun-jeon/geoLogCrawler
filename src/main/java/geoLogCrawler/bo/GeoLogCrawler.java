@@ -36,12 +36,14 @@ public class GeoLogCrawler {
 					logger.debug(geoLog.toString());
 
 					if (null != end && end.isAfter(geoLog.getEventTime())) {
-						logger.info("eventTime is After of End bound. so pass");
+						logger.info("end is After of eventTime . so pass");
 						continue;
 					}
 
-					if (null != start && start.isBefore(geoLog.getEventTime())) {
-						logger.info("eventTime is Before of Start bound. so break.");
+					if (null != start && start.isAfter(geoLog.getEventTime())) {
+						System.out.println("Start=" + start.toString());
+						System.out.println("geoLog.getEventTime()=" + geoLog.getEventTime().toString());
+						logger.info("start is After of eventTime . so pass");
 						break;
 					}
 

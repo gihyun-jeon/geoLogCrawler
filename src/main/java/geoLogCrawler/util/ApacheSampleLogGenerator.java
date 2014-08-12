@@ -15,7 +15,7 @@ public class ApacheSampleLogGenerator {
 	List<String> ipList = initList();
 	int maxIndex = ipList.size();
 	int maxSleepIntervalMsec = 1000;
-	int MAX_ROW = 100;
+	int MAX_ROW = 1000;
 
 	Random randomIndex = new Random();
 	Random randomSleepInterval = new Random();
@@ -31,10 +31,10 @@ public class ApacheSampleLogGenerator {
 		// 39.118.13.103 - userId [04/Aug/2014:00:00:01 +0900] "GET /js/dist/app/commons/sample.js HTTP/1.1" 200 1346 "Success-NotRefeshTime" "0"
 		out = new FileWriter(GeoLogCrawler.TARGET_LOG_FILE);
 		String ip;
-		DateTime date;
+		DateTime date = new DateTime(2014, 8, 12, 00, 00, 00);
 		while (keepGoing) {
 			ip = ipList.get(randomIndex.nextInt(maxIndex));
-			date = new DateTime();
+			date = date.plusMinutes(3);
 			String line = ip + " " + token + " " + userId + " " + date.toString(ApacheLogLineParser.APACHE_LOG_FORMATTER) + " " + sampleEtc;
 			out.write(line);
 			out.append("\n");
