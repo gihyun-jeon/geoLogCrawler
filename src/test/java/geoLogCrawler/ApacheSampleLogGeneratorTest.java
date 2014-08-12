@@ -1,5 +1,7 @@
 package geoLogCrawler;
 
+import geoLogCrawler.bo.ApacheSampleLogGenerator;
+
 import java.io.IOException;
 
 import org.junit.Test;

@@ -1,4 +1,6 @@
-package geoLogCrawler;
+package geoLogCrawler.bo;
+
+import geoLogCrawler.bean.GeoLog;
 
 import java.io.File;
 import java.net.InetAddress;

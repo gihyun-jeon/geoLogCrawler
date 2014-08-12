@@ -1,5 +1,7 @@
 package geoLogCrawler;
 
+import geoLogCrawler.bo.ApacheLogLineParser;
+
 import org.joda.time.DateTime;
 import org.junit.Test;
 

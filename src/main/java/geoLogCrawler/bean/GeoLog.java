@@ -1,4 +1,4 @@
-package geoLogCrawler;
+package geoLogCrawler.bean;
 
 import org.joda.time.DateTime;
 

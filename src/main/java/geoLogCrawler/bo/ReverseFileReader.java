@@ -1,4 +1,4 @@
-package geoLogCrawler;
+package geoLogCrawler.bo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

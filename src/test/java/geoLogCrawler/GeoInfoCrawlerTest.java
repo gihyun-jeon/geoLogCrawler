@@ -1,5 +1,7 @@
 package geoLogCrawler;
 
+import geoLogCrawler.bo.GeoLogCrawler;
+
 import org.junit.Test;
 
 public class GeoInfoCrawlerTest {
