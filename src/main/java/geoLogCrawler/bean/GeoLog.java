@@ -9,7 +9,7 @@ public class GeoLog {
 	private String ip;
 	private String latitude;
 	private String longitude;
-	private String tagString; //may be json
+	private String tagString; //may be json!!!
 
 	@Override
 	public String toString() {
