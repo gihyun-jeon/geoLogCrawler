@@ -1,8 +1,8 @@
-package geoLogCrawler.bo;
+package geoLogCrawler.logParser;
 
 import geoLogCrawler.bean.GeoLog;
 
-public interface LogLineParser {
+public interface LogParser {
 	public GeoLog parseLogLine(String line);
 
 }

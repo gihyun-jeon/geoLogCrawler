@@ -1,6 +1,8 @@
 package geoLogCrawler.bo;
 
 import geoLogCrawler.bean.GeoLog;
+import geoLogCrawler.logParser.ApacheLogParser;
+import geoLogCrawler.logParser.LogParser;
 import geoLogCrawler.util.ReverseFileReader;
 
 import java.io.File;
@@ -16,7 +18,7 @@ public class GeoLogCrawler {
 	private static final String ENCODING = "UTF-8";
 	public static final String TARGET_LOG_FILE = "src/main/resources/sample.log";
 
-	LogLineParser parser = new ApacheLogLineParser();
+	LogParser parser = new ApacheLogParser();
 
 	public void readAndParseLog() {
 		readAndParseLog(null, null);

@@ -1,7 +1,7 @@
 package geoLogCrawler.util;
 
-import geoLogCrawler.bo.ApacheLogLineParser;
 import geoLogCrawler.bo.GeoLogCrawler;
+import geoLogCrawler.logParser.ApacheLogParser;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class ApacheSampleLogGenerator {
 		while (keepGoing) {
 			ip = ipList.get(randomIndex.nextInt(maxIndex));
 			date = date.plusMinutes(3);
-			String line = ip + " " + token + " " + userId + " " + date.toString(ApacheLogLineParser.APACHE_LOG_FORMATTER) + " " + sampleEtc;
+			String line = ip + " " + token + " " + userId + " " + date.toString(ApacheLogParser.APACHE_LOG_FORMATTER) + " " + sampleEtc;
 			out.write(line);
 			out.append("\n");
 			out.flush();

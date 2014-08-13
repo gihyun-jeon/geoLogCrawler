@@ -1,4 +1,4 @@
-package geoLogCrawler.bo;
+package geoLogCrawler.logParser;
 
 import geoLogCrawler.bean.GeoLog;
 import geoLogCrawler.util.GpsCoordinateUtil;
@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
-public class ApacheLogLineParser implements LogLineParser {
-	private final static Logger logger = LoggerFactory.getLogger(ApacheLogLineParser.class);
+public class ApacheLogParser implements LogParser {
+	private final static Logger logger = LoggerFactory.getLogger(ApacheLogParser.class);
 	public static final DateTimeFormatter APACHE_LOG_FORMATTER = DateTimeFormat.forPattern("[dd/MMM/YYYY:HH:mm:ss Z]").withLocale(Locale.ENGLISH);
 	GpsCoordinateUtil gpsCoordinateUtil = new GpsCoordinateUtil();
 
