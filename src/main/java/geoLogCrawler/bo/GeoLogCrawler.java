@@ -9,6 +9,7 @@ import geoLogCrawler.util.ReverseFileReader;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -63,5 +64,9 @@ public class GeoLogCrawler {
 		} catch (IOException e) {
 			logger.warn("FAIL! line={}", line);
 		}
+	}
+
+	public List<GeoLog> selectGeoLogList(DateTime start, DateTime end) {
+		return geoLogDAO.selectGeoLogList(start, end);
 	}
 }
