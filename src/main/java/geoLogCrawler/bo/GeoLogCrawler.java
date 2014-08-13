@@ -1,6 +1,8 @@
 package geoLogCrawler.bo;
 
 import geoLogCrawler.bean.GeoLog;
+import geoLogCrawler.dao.GeoLogDAO;
+import geoLogCrawler.dao.GeoLogLocalMemoryDAO;
 import geoLogCrawler.logParser.ApacheLogParser;
 import geoLogCrawler.logParser.LogParser;
 import geoLogCrawler.util.ReverseFileReader;
@@ -19,38 +21,42 @@ public class GeoLogCrawler {
 	public static final String TARGET_LOG_FILE = "src/main/resources/sample.log";
 
 	LogParser parser = new ApacheLogParser();
+	GeoLogDAO geoLogDAO = new GeoLogLocalMemoryDAO();
 
 	public void readAndParseLog() {
 		readAndParseLog(null, null);
 	}
 
 	public void readAndParseLog(DateTime start, DateTime end) {
+		logger.info("Log Read Target Range. start={}, end={}", start, end);
+
 		File file = new File(TARGET_LOG_FILE);
 		ReverseFileReader fileReader;
 		String line = "";
 
 		try {
 			fileReader = new ReverseFileReader(file, ENCODING);
-
 			while ((line = fileReader.readLine()) != null) {
 				GeoLog geoLog = parser.parseLogLine(line);
-				if (null != geoLog) {
-					logger.debug(geoLog.toString());
 
-					if (null != end && end.isAfter(geoLog.getEventTime())) {
-						logger.info("end is After of eventTime . so pass");
+				if (null != geoLog) {
+
+					// REMIND!. log file is readed by time reverse
+					if (null != end && end.isBefore(geoLog.getEventTime())) {
+						logger.info("end isBefore of eventTime . so pass. end={}, geoLog.getEventTime()={}", end.toString(), geoLog.getEventTime().toString());
 						continue;
 					}
 
 					if (null != start && start.isAfter(geoLog.getEventTime())) {
-						System.out.println("Start=" + start.toString());
-						System.out.println("geoLog.getEventTime()=" + geoLog.getEventTime().toString());
-						logger.info("start is After of eventTime . so pass");
+						logger.info("start isAfter of eventTime . start={}, geoLog.getEventTime()={}", start.toString(), geoLog.getEventTime().toString());
 						break;
 					}
 
+					geoLogDAO.insert(geoLog);
+
 				} else {
-					logger.warn("getLog is null");
+
+					logger.warn("getLog is null! line={}", line);
 				}
 			}
 

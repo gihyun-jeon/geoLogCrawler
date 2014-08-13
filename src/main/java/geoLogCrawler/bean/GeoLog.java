@@ -13,7 +13,7 @@ public class GeoLog {
 
 	@Override
 	public String toString() {
-		return super.toString() + " eventTime=" + eventTime + " ip=" + ip + " latitude=" + latitude + " longitude=" + longitude + " tagString=" + tagString;
+		return "eventTime=" + eventTime + " ip=" + ip + " latitude=" + latitude + " longitude=" + longitude + " tagString=" + tagString + super.toString();
 	}
 
 	public DateTime getEventTime() {
