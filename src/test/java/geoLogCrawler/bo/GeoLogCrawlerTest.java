@@ -1,6 +1,4 @@
-package geoLogCrawler;
-
-import geoLogCrawler.bo.GeoLogCrawler;
+package geoLogCrawler.bo;
 
 import org.joda.time.DateTime;
 import org.junit.Test;
