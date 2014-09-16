@@ -42,7 +42,7 @@ public class GeoLogCrawler {
 
 				if (null != geoLog) {
 
-					// REMIND!. log file is readed by time reverse
+					// careful!. log file reading time reverse.
 					if (null != end && end.isBefore(geoLog.getEventTime())) {
 						logger.info("end isBefore of eventTime . so pass. end={}, geoLog.getEventTime()={}", end.toString(), geoLog.getEventTime().toString());
 						continue;
