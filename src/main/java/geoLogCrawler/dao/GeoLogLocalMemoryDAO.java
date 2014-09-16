@@ -36,7 +36,8 @@ public class GeoLogLocalMemoryDAO implements GeoLogDAO {
 		LOCAL_MEMORY_REOP.put(key, value);
 	}
 
-	private String getKey(BaseDateTime eventTime) {
+	@Override
+	public String getKey(BaseDateTime eventTime) {
 		return eventTime.toString("yyyy-MM-dd_HH:mm:ss");
 	}
 
