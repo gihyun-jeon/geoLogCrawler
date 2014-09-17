@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Configuration
@@ -71,17 +72,6 @@ public class SampleServerWithSpringBoot {
 		List<GeoLog> list = geoLogLocalMemoryDAO.selectGeoLogList(startDateTime, endDateTime);
 
 		sb.append("list=" + list.toString());
-		
-		ObjectMapper mapper = new ObjectMapper();
-		String returnValueString;
-		
-		try {
-			returnValueString = mapper.writeValueAsString("");
-			
-		} catch (Exception e) {
-		}
-		
-		//return returnValueString;
 
 		return sb.toString();
 	}
