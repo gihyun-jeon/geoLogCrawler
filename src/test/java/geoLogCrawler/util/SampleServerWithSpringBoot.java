@@ -6,6 +6,7 @@ import geoLogCrawler.dao.GeoLogLocalMemoryDAO;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +22,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.util.Maps;
 
 @Configuration
 @ComponentScan
@@ -39,10 +40,10 @@ public class SampleServerWithSpringBoot {
 	private static void startLogCrawler() {
 		DateTime start = new DateTime(2014, 8, 14, 0, 0, 0);
 		DateTime end = new DateTime(2014, 8, 14, 1, 0, 0);
-
-		GeoLogCrawler sut = new GeoLogCrawler();
+		
+		GeoLogCrawler geoLogCrawler = new GeoLogCrawler();
 		while (true) {
-			sut.readAndParseLog(start, end);
+			geoLogCrawler.readAndParseLog(start, end);
 			try {
 				Thread.sleep(1000 * 30);
 			} catch (InterruptedException e) {
@@ -55,24 +56,29 @@ public class SampleServerWithSpringBoot {
 	@RequestMapping("/api/getGeoLogList")
 	@ResponseBody
 	String getGeoLogList(HttpServletRequest req, Model model) {
-		StringBuffer sb = new StringBuffer();
+		Map<String, Object> resultMap = Maps.newHashMap();
+
 		String start = (String)req.getParameter("start");
 		String end = (String)req.getParameter("end");
+		resultMap.put("start", start);
+		resultMap.put("end", end);
 
-		sb.append("start=" + start);
-		sb.append("\n");
-		sb.append("end=" + end);
-		sb.append("\n");
-		
 		DateTime startDateTime = DateTime.parse(start, DATE_FORMATTER);
 		DateTime endDateTime = DateTime.parse(end, DATE_FORMATTER);
-		
 
 		GeoLogLocalMemoryDAO geoLogLocalMemoryDAO = new GeoLogLocalMemoryDAO();
-		List<GeoLog> list = geoLogLocalMemoryDAO.selectGeoLogList(startDateTime, endDateTime);
+		List<GeoLog> geoLogList = geoLogLocalMemoryDAO.selectGeoLogList(startDateTime, endDateTime);
+		resultMap.put("geoLogList", geoLogList);
 
-		sb.append("list=" + list.toString());
+		ObjectMapper mapper = new ObjectMapper();
+		String returnString;
 
-		return sb.toString();
+		try {
+			returnString = mapper.writeValueAsString(resultMap);
+		} catch (Exception e) {
+			returnString = e.getMessage();
+		}
+		
+		return returnString;
 	}
 }

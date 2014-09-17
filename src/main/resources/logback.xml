@@ -7,6 +7,21 @@
 		</encoder>
 	</appender>
 	
+	<logger name="org.springframework" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="ROOT" />
+	</logger>
+	
+	<logger name="org.hibernate" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="ROOT" />
+	</logger>
+	
+	<logger name="org.jboss" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="ROOT" />
+	</logger>
+	
 	<root level="DEBUG">
 		<appender-ref ref="ROOT" />
 	</root>
