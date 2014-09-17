@@ -19,13 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.api.client.repackaged.com.google.common.base.Strings;
 import com.google.api.client.util.Maps;
 
 @Controller
 public class ApiController {
 	private final static Logger logger = LoggerFactory.getLogger(ApiController.class);
 	public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd_HH:mm:ss").withLocale(Locale.KOREA);
+	private static final int DEFAULT_TIME_RANGE_SEC = 5;
 
+	// http://localhost:8080/api/getGeoLogList
 	// http://localhost:8080/api/getGeoLogList?start=YYYY-MM-DD_HH:mm:ss&end=YYYY-MM-DD_HH:mm:ss
 	// http://localhost:8080/api/getGeoLogList?start=2014-08-14_00:00:00&end=2014-08-14_01:00:00
 	@RequestMapping("/api/getGeoLogList")
@@ -38,12 +41,20 @@ public class ApiController {
 		resultMap.put("start", start);
 		resultMap.put("end", end);
 
-		DateTime startDateTime = DateTime.parse(start, DATE_FORMATTER);
-		DateTime endDateTime = DateTime.parse(end, DATE_FORMATTER);
+		DateTime startDateTime;
+		DateTime endDateTime;
+		if (Strings.isNullOrEmpty(start) || Strings.isNullOrEmpty(end)) {
+			endDateTime = new DateTime();
+			startDateTime = endDateTime.minusSeconds(DEFAULT_TIME_RANGE_SEC);
+		} else {
+			startDateTime = DateTime.parse(start, DATE_FORMATTER);
+			endDateTime = DateTime.parse(end, DATE_FORMATTER);
+		}
 
 		GeoLogLocalMemoryDAO geoLogLocalMemoryDAO = new GeoLogLocalMemoryDAO();
 		List<GeoLog> geoLogList = geoLogLocalMemoryDAO.selectGeoLogList(startDateTime, endDateTime);
 		resultMap.put("geoLogList", geoLogList);
+		resultMap.put("geoLogListSize", geoLogList.size());
 
 		ObjectMapper mapper = new ObjectMapper();
 		String returnString;
