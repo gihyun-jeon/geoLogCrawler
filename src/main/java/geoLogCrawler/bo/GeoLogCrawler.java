@@ -62,6 +62,7 @@ public class GeoLogCrawler {
 			}
 
 		} catch (IOException e) {
+			logger.warn(e.getMessage(), e);
 			logger.warn("FAIL! line={}", line);
 		}
 	}

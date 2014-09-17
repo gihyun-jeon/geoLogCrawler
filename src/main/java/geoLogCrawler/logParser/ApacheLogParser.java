@@ -47,6 +47,7 @@ public class ApacheLogParser implements LogParser {
 			geoLog.setEventTime(eventTime);
 
 		} catch (IllegalArgumentException e) {
+			logger.warn(e.getMessage(), e);
 			logger.warn("invalid input. line={}", line);
 			return null;
 		}
