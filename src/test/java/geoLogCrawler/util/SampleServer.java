@@ -46,7 +46,7 @@ public class SampleServer {
 					date = new DateTime();
 					line = apacheSampleLogGenerator.generateRandomLogLine(date);
 
-					System.out.println(line);
+					//System.out.println(line);
 
 					out.write(line);
 					out.append("\n");
