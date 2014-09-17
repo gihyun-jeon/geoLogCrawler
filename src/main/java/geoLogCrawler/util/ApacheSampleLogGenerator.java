@@ -10,29 +10,34 @@ import java.util.List;
 import java.util.Random;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ApacheSampleLogGenerator {
+	private final static Logger logger = LoggerFactory.getLogger(ApacheSampleLogGenerator.class);
+
 	List<String> ipList = initList();
 	int maxIndex = ipList.size();
 	int maxSleepIntervalMsec = 1000;
-	int MAX_ROW = 1000;
 
 	Random randomIndex = new Random();
 	Random randomSleepInterval = new Random();
 	String token = "-";
 	String userId = "userIdSample";
 	String sampleEtc = "\"GET /js/dist/app/commons/sample.js HTTP/1.1\" 200 1346 \"Success-NotRefeshTime\" \"0\"";
-	boolean keepGoing = true;
 
 	public void genereateSampleLog() throws IOException {
+		int MAX_ROW = 1000;
 		FileWriter out = null;
 		int rowCount = 0;
 
 		// 39.118.13.103 - userId [04/Aug/2014:00:00:01 +0900] "GET /js/dist/app/commons/sample.js HTTP/1.1" 200 1346 "Success-NotRefeshTime" "0"
-		out = new FileWriter(GeoLogCrawler.TARGET_LOG_FILE);
+		out = new FileWriter(GeoLogCrawler.TARGET_SAMPLE_LOG_FILE);
 		String ip;
 		DateTime date = new DateTime(2014, 8, 12, 00, 00, 00);
-		while (keepGoing) {
+		while (true) {
 			ip = ipList.get(randomIndex.nextInt(maxIndex));
 			date = date.plusMinutes(3);
 			String line = ip + " " + token + " " + userId + " " + date.toString(ApacheLogParser.APACHE_LOG_FORMATTER) + " " + sampleEtc;
@@ -48,6 +53,11 @@ public class ApacheSampleLogGenerator {
 		}
 		out.close();
 
+	}
+
+	public String generateRandomLogLine(DateTime date) {
+		String ip = ipList.get(randomIndex.nextInt(maxIndex));
+		return ip + " " + token + " " + userId + " " + date.toString(ApacheLogParser.APACHE_LOG_FORMATTER) + " " + sampleEtc;
 	}
 
 	private static List<String> initList() {

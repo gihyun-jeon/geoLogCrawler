@@ -21,7 +21,7 @@ public class ApacheLogParser implements LogParser {
 	@Override
 	public GeoLog parseLogLine(String line) {
 		if (null == line || line.isEmpty()) {
-			logger.warn("log line is null!");
+			//logger.warn("log line is null!");
 			return null;
 		}
 

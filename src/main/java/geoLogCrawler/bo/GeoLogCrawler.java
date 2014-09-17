@@ -19,19 +19,20 @@ public class GeoLogCrawler {
 	private final static Logger logger = LoggerFactory.getLogger(GeoLogCrawler.class);
 
 	private static final String ENCODING = "UTF-8";
-	public static final String TARGET_LOG_FILE = "src/main/resources/sample.log";
+	public static final String TARGET_SAMPLE_LOG_FILE = "src/main/resources/sample.log";
+	public static final String TARGET_REAL_TIME_LOG_FILE = "src/main/resources/doNotCommit_realTimeSample.log";
 
 	LogParser parser = new ApacheLogParser();
 	GeoLogDAO geoLogDAO = new GeoLogLocalMemoryDAO();
 
-	public void readAndParseLog() {
-		readAndParseLog(null, null);
+	public void readAndParseLogAllRange() {
+		readAndParseLog(null, null, TARGET_SAMPLE_LOG_FILE);
 	}
 
-	public void readAndParseLog(DateTime start, DateTime end) {
+	public void readAndParseLog(DateTime start, DateTime end, String fileName) {
 		logger.info("Log Read Target Range. start={}, end={}", start, end);
 
-		File file = new File(TARGET_LOG_FILE);
+		File file = new File(fileName);
 		ReverseFileReader fileReader;
 		String line = "";
 
@@ -44,20 +45,19 @@ public class GeoLogCrawler {
 
 					// careful!. log file reading time reverse.
 					if (null != end && end.isBefore(geoLog.getEventTime())) {
-						logger.info("end isBefore of eventTime . so pass. end={}, geoLog.getEventTime()={}", end.toString(), geoLog.getEventTime().toString());
+						//logger.info("end isBefore of eventTime . so pass. end={}, geoLog.getEventTime()={}", end.toString(), geoLog.getEventTime().toString());
 						continue;
 					}
 
 					if (null != start && start.isAfter(geoLog.getEventTime())) {
-						logger.info("start isAfter of eventTime . start={}, geoLog.getEventTime()={}", start.toString(), geoLog.getEventTime().toString());
+						//logger.info("start isAfter of eventTime . start={}, geoLog.getEventTime()={}", start.toString(), geoLog.getEventTime().toString());
 						break;
 					}
 
 					geoLogDAO.insert(geoLog);
 
 				} else {
-
-					logger.warn("getLog is null! line={}", line);
+					//logger.warn("getLog is null! line={}", line);
 				}
 			}
 

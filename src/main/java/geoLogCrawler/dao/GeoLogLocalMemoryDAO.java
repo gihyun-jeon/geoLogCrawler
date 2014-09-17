@@ -32,7 +32,7 @@ public class GeoLogLocalMemoryDAO implements GeoLogDAO {
 		}
 		value.add(geoLog);
 
-		logger.info("Try to insert. key={}, value={}", key, value);
+		//logger.info("Try to insert. key={}, value={}", key, value);
 		LOCAL_MEMORY_REOP.put(key, value);
 	}
 

@@ -13,7 +13,7 @@ public class GeoLogCrawlerTest {
 	@Test
 	public void doTest() {
 		GeoLogCrawler sut = new GeoLogCrawler();
-		sut.readAndParseLog();
+		sut.readAndParseLogAllRange();
 	}
 
 	@Test
@@ -21,7 +21,7 @@ public class GeoLogCrawlerTest {
 		GeoLogCrawler sut = new GeoLogCrawler();
 		DateTime start = new DateTime(2014, 8, 14, 0, 0, 0);
 		DateTime end = new DateTime(2014, 8, 14, 1, 0, 0);
-		sut.readAndParseLog(start, end);
+		sut.readAndParseLog(start, end, GeoLogCrawler.TARGET_SAMPLE_LOG_FILE);
 
 		List<GeoLog> actual = sut.selectGeoLogList(start, end);
 		for (GeoLog gl : actual) {
@@ -35,7 +35,7 @@ public class GeoLogCrawlerTest {
 		GeoLogCrawler sut = new GeoLogCrawler();
 		DateTime start = new DateTime(2014, 8, 14, 0, 0, 0);
 		DateTime end = new DateTime(2014, 8, 14, 1, 0, 0);
-		sut.readAndParseLog(start, end);
+		sut.readAndParseLog(start, end, GeoLogCrawler.TARGET_SAMPLE_LOG_FILE);
 
 		List<GeoLog> actual = sut.selectGeoLogList(start, end);
 		for (GeoLog gl : actual) {

@@ -2,7 +2,13 @@ package geoLogCrawler.util;
 
 import geoLogCrawler.bo.GeoLogCrawler;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,22 +18,52 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan
 @EnableAutoConfiguration
 public class SampleServer {
-	public static void main(String[] args) {
+	private final static Logger logger = LoggerFactory.getLogger(SampleServer.class);
+
+	private static final int INTERVAL_SEC = 2;
+
+	public static void main(String[] args) throws IOException {
 		SpringApplication.run(SampleServer.class, args);
-		startLogCrawler();
+		generateSampleData();
 	}
 
-	private static void startLogCrawler() {
-		DateTime start = new DateTime(2014, 8, 14, 0, 0, 0);
-		DateTime end = new DateTime(2014, 8, 14, 1, 0, 0);
-
+	private static void generateSampleData() {
 		GeoLogCrawler geoLogCrawler = new GeoLogCrawler();
+		ApacheSampleLogGenerator apacheSampleLogGenerator = new ApacheSampleLogGenerator();
+
 		while (true) {
-			geoLogCrawler.readAndParseLog(start, end);
+			File file = new File(GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
+			file.delete();
+
+			FileWriter out;
 			try {
-				Thread.sleep(1000 * 30);
-			} catch (InterruptedException e) {
-				break;
+				out = new FileWriter(GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
+
+				DateTime date;
+				String line;
+
+				while (true) {
+					date = new DateTime();
+					line = apacheSampleLogGenerator.generateRandomLogLine(date);
+
+					System.out.println(line);
+
+					out.write(line);
+					out.append("\n");
+					out.flush();
+
+					if (line.hashCode() % 3 == 0) {
+						Thread.sleep(1000 * INTERVAL_SEC);
+					}
+
+					DateTime end = new DateTime();
+					DateTime start = end.minusSeconds(INTERVAL_SEC);
+					geoLogCrawler.readAndParseLog(start, end, GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
+
+				}
+
+			} catch (Exception e) {
+				logger.error(e.getMessage(), e);
 			}
 		}
 	}
