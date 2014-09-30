@@ -62,7 +62,7 @@ public class SampleServer {
 					out.append("\n");
 					out.flush();
 
-					if (line.hashCode() % 3 == 0) {
+					if (line.hashCode() % 100 == 0) {
 						Thread.sleep(1000 * INTERVAL_SEC);
 					}
 

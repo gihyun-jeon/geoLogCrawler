@@ -72,7 +72,7 @@ public class ApiController {
 
 		model.addAttribute("geoLogList", geoLogList);
 
-		return "geoLogMap";
+		return "wmap_point2";
 	}
 
 	// http://localhost:8080/api/getGeoLogList
@@ -100,19 +100,38 @@ public class ApiController {
 
 		GeoLogLocalMemoryDAO geoLogLocalMemoryDAO = new GeoLogLocalMemoryDAO();
 		List<GeoLog> geoLogList = geoLogLocalMemoryDAO.selectGeoLogList(startDateTime, endDateTime);
-		resultMap.put("geoLogList", geoLogList);
-		resultMap.put("geoLogListSize", geoLogList.size());
 
-		ObjectMapper mapper = new ObjectMapper();
-		String returnString;
-
-		try {
-			returnString = mapper.writeValueAsString(resultMap);
-		} catch (Exception e) {
-			returnString = e.getMessage();
+		StringBuilder sb = new StringBuilder();
+		sb.append("{");
+		int listSize = geoLogList.size();
+		int i = 0;
+		for (GeoLog geoLog : geoLogList) {
+			//sb.append("\"").append(geoLog.getIp()).append("\"").append(":[").append(geoLog.getLatitude()).append(",").append(geoLog.getLongitude()).append("]");
+			sb.append("\"").append("").append("\"").append(":[").append(geoLog.getLatitude()).append(",").append(geoLog.getLongitude()).append("]");
+			i++;
+			if (i < listSize) {
+				sb.append(",");
+			}
 		}
+		sb.append("}");
 
-		logger.info(returnString);
-		return returnString;
+		//		resultMap.put("geoLogList", geoLogList);
+		//		resultMap.put("geoLogListSize", geoLogList.size());
+		//
+		//		ObjectMapper mapper = new ObjectMapper();
+		//		String returnString;
+		//
+		//		try {
+		//			returnString = mapper.writeValueAsString(resultMap);
+		//		} catch (Exception e) {
+		//			returnString = e.getMessage();
+		//		}
+
+		//		logger.info(returnString);
+		//		return returnString;
+		
+		logger.info(sb.toString());
+
+		return sb.toString();
 	}
 }
