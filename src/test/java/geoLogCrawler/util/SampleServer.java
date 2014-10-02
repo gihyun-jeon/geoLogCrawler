@@ -52,6 +52,7 @@ public class SampleServer {
 				DateTime date;
 				String line;
 
+				DateTime end, start;
 				while (true) {
 					date = new DateTime();
 					line = apacheSampleLogGenerator.generateRandomLogLine(date);
@@ -63,12 +64,12 @@ public class SampleServer {
 					out.flush();
 
 					if (line.hashCode() % 500 == 0) {
+						end = new DateTime();
+						start = end.minusSeconds(INTERVAL_SEC);
+						geoLogCrawler.readAndParseLog(start, end, GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
+
 						Thread.sleep(1000 * INTERVAL_SEC);
 					}
-
-					DateTime end = new DateTime();
-					DateTime start = end.minusSeconds(INTERVAL_SEC);
-					geoLogCrawler.readAndParseLog(start, end, GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
 
 				}
 

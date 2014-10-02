@@ -37,8 +37,10 @@ public class GeoLogCrawler {
 		String line = "";
 
 		try {
+			int targetCount = 0, successCount = 0;
 			fileReader = new ReverseFileReader(file, ENCODING);
 			while ((line = fileReader.readLine()) != null) {
+				targetCount++;
 				GeoLog geoLog = parser.parseLogLine(line);
 
 				if (null != geoLog) {
@@ -55,11 +57,14 @@ public class GeoLogCrawler {
 					}
 
 					geoLogDAO.insert(geoLog);
+					successCount++;
 
 				} else {
 					//logger.warn("getLog is null! line={}", line);
 				}
 			}
+
+			logger.info("Target logLine count : {}, parsed logLine count : {}", targetCount, successCount);
 
 		} catch (IOException e) {
 			logger.warn(e.getMessage(), e);
