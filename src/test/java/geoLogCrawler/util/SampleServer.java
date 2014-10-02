@@ -22,7 +22,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class SampleServer {
 	private final static Logger logger = LoggerFactory.getLogger(SampleServer.class);
 
-	private static final int INTERVAL_SEC = 2;
+	private static final int INTERVAL_SEC = 1;
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(SampleServer.class, args);
@@ -62,7 +62,7 @@ public class SampleServer {
 					out.append("\n");
 					out.flush();
 
-					if (line.hashCode() % 100 == 0) {
+					if (line.hashCode() % 500 == 0) {
 						Thread.sleep(1000 * INTERVAL_SEC);
 					}
 

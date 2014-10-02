@@ -30,7 +30,7 @@ public class GeoLogCrawler {
 	}
 
 	public void readAndParseLog(DateTime start, DateTime end, String fileName) {
-		logger.info("Log Read Target Range. start={}, end={}", start, end);
+		//logger.info("Log Read Target Range. start={}, end={}", start, end);
 
 		File file = new File(fileName);
 		ReverseFileReader fileReader;

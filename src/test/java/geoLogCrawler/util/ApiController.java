@@ -130,7 +130,7 @@ public class ApiController {
 		//		logger.info(returnString);
 		//		return returnString;
 		
-		logger.info(sb.toString());
+		//logger.info(sb.toString());
 
 		return sb.toString();
 	}

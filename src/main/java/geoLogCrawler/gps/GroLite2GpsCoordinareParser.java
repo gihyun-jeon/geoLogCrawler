@@ -1,4 +1,4 @@
-package geoLogCrawler.util;
+package geoLogCrawler.gps;
 
 import geoLogCrawler.bean.GeoLog;
 
@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 import com.maxmind.geoip2.DatabaseReader;
 import com.maxmind.geoip2.model.CityResponse;
 
-public class GpsCoordinateUtil {
-	private final static Logger logger = LoggerFactory.getLogger(GpsCoordinateUtil.class);
+public class GroLite2GpsCoordinareParser implements GpsCoordinareParser {
+	private final static Logger logger = LoggerFactory.getLogger(GroLite2GpsCoordinareParser.class);
 	private static final DatabaseReader dbReader = initDb();
 
 	private static DatabaseReader initDb() {
@@ -26,6 +26,7 @@ public class GpsCoordinateUtil {
 		}
 	}
 
+	@Override
 	public void composeGpsCoordinate(GeoLog geoLog) {
 		try {
 			CityResponse response = dbReader.city(InetAddress.getByName(geoLog.getIp()));

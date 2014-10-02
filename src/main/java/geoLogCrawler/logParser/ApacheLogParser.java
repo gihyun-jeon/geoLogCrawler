@@ -1,7 +1,8 @@
 package geoLogCrawler.logParser;
 
 import geoLogCrawler.bean.GeoLog;
-import geoLogCrawler.util.GpsCoordinateUtil;
+import geoLogCrawler.gps.GpsCoordinareParser;
+import geoLogCrawler.gps.GroLite2GpsCoordinareParser;
 
 import java.util.Locale;
 
@@ -16,7 +17,9 @@ import com.google.common.base.Strings;
 public class ApacheLogParser implements LogParser {
 	private final static Logger logger = LoggerFactory.getLogger(ApacheLogParser.class);
 	public static final DateTimeFormatter APACHE_LOG_FORMATTER = DateTimeFormat.forPattern("[dd/MMM/YYYY:HH:mm:ss Z]").withLocale(Locale.ENGLISH);
-	GpsCoordinateUtil gpsCoordinateUtil = new GpsCoordinateUtil();
+
+
+	GpsCoordinareParser gpsCoordinateUtil = new GroLite2GpsCoordinareParser();
 
 	@Override
 	public GeoLog parseLogLine(String line) {
