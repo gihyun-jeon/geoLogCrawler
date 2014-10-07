@@ -31,11 +31,10 @@
     <div id="map"></div>
     <script type="text/javascript">
     
-    var delDivElementInterval = 10;		// 10�� ������ �߻��� div ����
-    var callMapInterval = 1000*1;		// ������ ����ϴ� �ð�
-    var fadeoutSvgInterval = 900;	// ������� �ð�
+    var delDivElementInterval = 10;		
+    var callMapInterval = 1000 * 1;		
+    var fadeoutSvgInterval = 1000 * 5;	
     
-    // map ����
     var defaultX = 36.556059;
     var defaultY = 126.91009;
     var defaultZoom = 8;
@@ -61,7 +60,7 @@
 	  	return zero + n;
 	}    
 
-	// Create the Google Map��
+	// Create the Google Map
 	var map = new google.maps.Map(d3.select("#map").node(), {
 	  zoom: defaultZoom,
 	  center: new google.maps.LatLng(defaultX, defaultY),
@@ -74,10 +73,10 @@
 		// json file
 		var CurrentTimeStamp = getTimeStamp(0);
 		var BeforTimeStamp = getTimeStamp(delDivElementInterval);
-		//var jsonName = "./"+CurrentTimeStamp+".json";  // �� ������ ������ ������ ���
+		
 		var jsonName = "/api/getGeoLogList";
 		
-		// d3 �׷���
+		
 		d3.json(jsonName, function(data) {
 			var overlay = new google.maps.OverlayView();
 		
@@ -124,7 +123,7 @@
 		    	};
 		  	};
 			d3.selectAll("#stations_"+BeforTimeStamp+"").remove();
-		  	// Bind our overlay to the map��
+		  	// Bind our overlay to the map
 		  	overlay.setMap(map);
 		});
 	}
