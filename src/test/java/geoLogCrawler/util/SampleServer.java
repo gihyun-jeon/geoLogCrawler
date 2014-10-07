@@ -53,22 +53,22 @@ public class SampleServer {
 				String line;
 
 				DateTime end, start;
+				int logCount = 0;
 				while (true) {
 					date = new DateTime();
 					line = apacheSampleLogGenerator.generateRandomLogLine(date);
-
-					//System.out.println(line);
-
 					out.write(line);
 					out.append("\n");
 					out.flush();
 
-					if (line.hashCode() % 500 == 0) {
+					logCount++;
+					if (line.hashCode() % 50 == 0 || logCount > 50) {
 						end = new DateTime();
 						start = end.minusSeconds(INTERVAL_SEC);
 						geoLogCrawler.readAndParseLog(start, end, GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
 
-						Thread.sleep(1000 * INTERVAL_SEC);
+						Thread.sleep(900 * INTERVAL_SEC);
+						logCount = 0;
 					}
 
 				}

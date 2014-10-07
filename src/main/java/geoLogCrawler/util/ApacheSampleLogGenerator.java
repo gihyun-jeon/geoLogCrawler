@@ -69,6 +69,7 @@ public class ApacheSampleLogGenerator {
 		BufferedReader fileReader;
 		try {
 			fileReader = new BufferedReader(new FileReader("src/main/resources/sampleIpList.txt"));
+			//fileReader = new BufferedReader(new FileReader("src/main/resources/sampleIpListEastAsia.txt"));
 			String sampleIp;
 			while ((sampleIp = fileReader.readLine()) != null) {
 				sampleIpList.add(sampleIp);
