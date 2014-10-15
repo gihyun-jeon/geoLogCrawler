@@ -34,9 +34,8 @@ public class GroLite2GpsCoordinareParser implements GpsCoordinareParser {
 			geoLog.setLongitude(String.valueOf(response.getLocation().getLongitude()));
 
 		} catch (Exception e) {
-			logger.warn(e.getMessage() + "geoLog=" + geoLog);
-			//logger.warn(e.getMessage() + "geoLog=" + geoLog, e);
+			logger.warn(e.getMessage(), e);
+			logger.warn("geoLog={}", geoLog);
 		}
 	}
-
 }

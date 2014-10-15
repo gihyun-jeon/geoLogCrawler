@@ -6,13 +6,14 @@ import geoLogCrawler.gps.GroLite2GpsCoordinareParser;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.List;
 
 import org.junit.Test;
 
 import com.google.api.client.util.Lists;
 
-public class SampleIpOrganizer {
+import java.util.List;
+
+public class SampleIpOrganizerForTest {
 
 	@Test
 	public void doJob() {
@@ -25,7 +26,7 @@ public class SampleIpOrganizer {
 				sampleIpList.add(sampleIp);
 			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 
 		GpsCoordinareParser gp = new GroLite2GpsCoordinareParser();
@@ -49,7 +50,7 @@ public class SampleIpOrganizer {
 
 		System.out.println("########### RESLUT ###########");
 		for (GeoLog oGeoLog : uniqGeoLogList) {
-			if ("China".equals(oGeoLog.getTagString()) || "Republic of Korea".equals(oGeoLog.getTagString()) || "Japan".equals(oGeoLog.getTagString())) {
+			if ("China".equals(oGeoLog.getTagJsonString()) || "Republic of Korea".equals(oGeoLog.getTagJsonString()) || "Japan".equals(oGeoLog.getTagJsonString())) {
 
 				System.out.println(oGeoLog.getIp());
 			}

@@ -1,6 +1,7 @@
 package geoLogCrawler.util;
 
 import geoLogCrawler.bo.GeoLogCrawler;
+import geoLogCrawler.util.ApacheSampleLogGenerator.IpLocation;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 public class SampleServer {
 	private final static Logger logger = LoggerFactory.getLogger(SampleServer.class);
 
+	private static final String SAMPLE_LOG_FOR_REALTIME_DEMO = "src/main/resources/do_not_commit_this_file_sampleLog_for_realtime_demo.log";
 	private static final int INTERVAL_SEC = 1;
 
 	public static void main(String[] args) throws IOException {
@@ -38,16 +40,17 @@ public class SampleServer {
 	}
 
 	private static void generateSampleData() {
-		GeoLogCrawler geoLogCrawler = new GeoLogCrawler();
-		ApacheSampleLogGenerator apacheSampleLogGenerator = new ApacheSampleLogGenerator();
+		GeoLogCrawler geoLogCrawler = new GeoLogCrawler(SAMPLE_LOG_FOR_REALTIME_DEMO);
+		//ApacheSampleLogGenerator apacheSampleLogGenerator = new ApacheSampleLogGenerator(IpLocation.GLOBAL);
+		ApacheSampleLogGenerator apacheSampleLogGenerator = new ApacheSampleLogGenerator(IpLocation.EAST_ASIA);
 
 		while (true) {
-			File file = new File(GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
+			File file = new File(SAMPLE_LOG_FOR_REALTIME_DEMO);
 			file.delete();
 
 			FileWriter out;
 			try {
-				out = new FileWriter(GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
+				out = new FileWriter(SAMPLE_LOG_FOR_REALTIME_DEMO);
 
 				DateTime date;
 				String line;
@@ -65,7 +68,7 @@ public class SampleServer {
 					if (line.hashCode() % 50 == 0 || logCount > 50) {
 						end = new DateTime();
 						start = end.minusSeconds(INTERVAL_SEC);
-						geoLogCrawler.readAndParseLog(start, end, GeoLogCrawler.TARGET_REAL_TIME_LOG_FILE);
+						geoLogCrawler.readAndParseLog(start, end);
 
 						Thread.sleep(900 * INTERVAL_SEC);
 						logCount = 0;

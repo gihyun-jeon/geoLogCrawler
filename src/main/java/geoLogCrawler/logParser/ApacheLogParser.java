@@ -4,8 +4,6 @@ import geoLogCrawler.bean.GeoLog;
 import geoLogCrawler.gps.GpsCoordinareParser;
 import geoLogCrawler.gps.GroLite2GpsCoordinareParser;
 
-import java.util.Locale;
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -14,10 +12,11 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
+import java.util.Locale;
+
 public class ApacheLogParser implements LogParser {
 	private final static Logger logger = LoggerFactory.getLogger(ApacheLogParser.class);
 	public static final DateTimeFormatter APACHE_LOG_FORMATTER = DateTimeFormat.forPattern("[dd/MMM/YYYY:HH:mm:ss Z]").withLocale(Locale.ENGLISH);
-
 
 	GpsCoordinareParser gpsCoordinateUtil = new GroLite2GpsCoordinareParser();
 

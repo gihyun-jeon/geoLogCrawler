@@ -1,19 +1,25 @@
 package geoLogCrawler.bean;
 
+import geoLogCrawler.util.ApacheSampleLogGenerator;
+
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.api.client.repackaged.com.google.common.base.Strings;
 
 public class GeoLog {
+	private final static Logger logger = LoggerFactory.getLogger(ApacheSampleLogGenerator.class);
+
 	private DateTime eventTime;
 	private String ip;
 	private String latitude;
 	private String longitude;
-	private String tagString; //may be json!!!
+	private String tagJsonString;
 
 	@Override
 	public String toString() {
-		return "eventTime=" + eventTime + " ip=" + ip + " latitude=" + latitude + " longitude=" + longitude + " tagString=" + tagString + super.toString();
+		return "eventTime=" + eventTime + " ip=" + ip + " latitude=" + latitude + " longitude=" + longitude + " tagString=" + tagJsonString + super.toString();
 	}
 
 	public DateTime getEventTime() {
@@ -30,7 +36,8 @@ public class GeoLog {
 
 	public void setIp(String ip) {
 		if (Strings.isNullOrEmpty(ip)) {
-			throw new RuntimeException("ip can not be null!");
+			logger.warn("ip can not be null!");
+			return;
 		}
 		this.ip = ip;
 	}
@@ -51,12 +58,12 @@ public class GeoLog {
 		this.longitude = longitude;
 	}
 
-	public String getTagString() {
-		return tagString;
+	public String getTagJsonString() {
+		return tagJsonString;
 	}
 
-	public void setTagString(String tagString) {
-		this.tagString = tagString;
+	public void setTagJsonString(String tagJsonString) {
+		this.tagJsonString = tagJsonString;
 	}
 
 }

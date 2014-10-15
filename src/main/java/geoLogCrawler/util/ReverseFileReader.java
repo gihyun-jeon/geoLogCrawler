@@ -8,26 +8,52 @@ import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ReverseFileReader {
+	private final static Logger logger = LoggerFactory.getLogger(ReverseFileReader.class);
+
 	private static final int BUFFER_SIZE = 8192;
 
-	private final FileChannel channel;
+	private FileChannel channel;
 	private final String encoding;
 	private long filePosition;
 	private ByteBuffer buffer;
 	private int bufferPosition;
 	private byte lastLineBreak = '\n';
 	private ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	RandomAccessFile targetFile;
 
-	@SuppressWarnings("resource")
-	public ReverseFileReader(File file, String encoding) throws IOException {
-		RandomAccessFile targetFile = new RandomAccessFile(file, "r");
-		channel = targetFile.getChannel();
-		filePosition = targetFile.length();
+	public ReverseFileReader(File file, String encoding) {
+		try {
+			targetFile = new RandomAccessFile(file, "r");
+			channel = targetFile.getChannel();
+			filePosition = targetFile.length();
+
+		} catch (IOException e) {
+			logger.warn(e.getMessage(), e);
+		}
+
 		this.encoding = encoding;
 	}
 
+	public boolean close() {
+		try {
+			targetFile.close();
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+			return false;
+		}
+		return true;
+	}
+
 	public String readLine() throws IOException {
+		if (!targetFile.getChannel().isOpen()) {
+			logger.warn("targetFile is not open!");
+			return null;
+		}
+
 		while (true) {
 			if (bufferPosition < 0) {
 				if (filePosition == 0) {
@@ -76,7 +102,6 @@ public class ReverseFileReader {
 		}
 
 		outputStream.reset();
-
 		return new String(bytes, encoding);
 	}
 
