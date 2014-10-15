@@ -15,5 +15,13 @@ save on user define DAO.
 
 show it google map Web UI.
 
-# sample
+# example
+clone project, convert to Spring Project.
+
+Run SampleServer.java
+
+It generate sampleLog and Crawlering.
+
+you can view it On http://localhost:8080/gmap.html
+
 <img src="http://postfiles15.naver.net/20141015_14/xelloss25_1413359664700K9ngj_PNG/%BD%BA%BC%A61.png?type=w2">
