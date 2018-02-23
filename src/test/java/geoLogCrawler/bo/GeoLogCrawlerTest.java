@@ -48,6 +48,8 @@ public class GeoLogCrawlerTest {
     public static void run() {
         //1
         //2
+        //2
+        //2
         GeoLogCrawler sut = new GeoLogCrawler(SAMPLE_LOG_FOR_TESTCODE);
 
         MutableDateTime lastJobTime = new MutableDateTime();
