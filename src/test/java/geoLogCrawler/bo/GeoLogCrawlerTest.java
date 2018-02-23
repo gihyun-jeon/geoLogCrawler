@@ -28,7 +28,7 @@ public class GeoLogCrawlerTest {
         for (GeoLog gl : actual) {
             System.out.println(gl.toString());
         }
-
+        // ddd
     }
 
     @Test
