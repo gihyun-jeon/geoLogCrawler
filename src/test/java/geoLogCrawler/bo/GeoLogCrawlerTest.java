@@ -29,7 +29,6 @@ public class GeoLogCrawlerTest {
             System.out.println(gl.toString());
         }
         // ddd
-        // ddd
     }
 
     @Test
